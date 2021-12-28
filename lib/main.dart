@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/views/allTasks/allTasks_view.dart';
+import 'ui/views/MyLists/my_lists_view.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           primaryColorDark: const Color(0xffd32f2f),
           scaffoldBackgroundColor: const Color(0xfffafafa), //xx
         ),
-        home: const AllTasks(),
+        home: const MyListsWidget(),
         debugShowCheckedModeBanner: false);
   }
 }

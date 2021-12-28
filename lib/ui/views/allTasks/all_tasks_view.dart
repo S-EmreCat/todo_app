@@ -12,15 +12,18 @@ class _AllTasksState extends State<AllTasks> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Todo Uygulaması"),
+        title: const Text('Todo App'),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const FlutterLogo(),
+            icon: const Icon(Icons.delete_sweep),
           )
         ],
       ),
-      body: const Text("data"),
+      body: IconButton(
+        onPressed: () {},
+        icon: const FlutterLogo(),
+      ),
     );
   }
 }
