@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/ui/views/allTasks/all_tasks_view.dart';
 import '../../widgets/card/my_lists_card.dart';
 import '../../../core/constant/string_constants.dart';
 
@@ -23,26 +24,55 @@ class MyListsWidget extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: 20.0,
                   mainAxisSpacing: 20,
-                  children: const [
+                  children: [
                     MyListsCardItem(
                       itemCount: 9,
-                      taskIcon: Icons.notes,
+                      taskIcon: const Icon(Icons.notes),
                       taskName: StringConstants.taskNameAll,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AllTasks()),
+                        );
+                      },
                     ),
                     MyListsCardItem(
                       itemCount: 9,
-                      taskIcon: Icons.account_box_outlined,
+                      taskIcon: const Icon(Icons.account_box_outlined),
                       taskName: StringConstants.taskNamePersonal,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AllTasks()),
+                        );
+                      },
                     ),
                     MyListsCardItem(
                       itemCount: 9,
-                      taskIcon: Icons.work_outline,
+                      taskIcon: const Icon(Icons.work_outline),
                       taskName: StringConstants.taskNamePersonal,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AllTasks()),
+                        );
+                      },
                     ),
                     MyListsCardItem(
                       itemCount: 9,
-                      taskIcon: Icons.add,
+                      taskIcon: const Icon(Icons.add),
                       taskName: StringConstants.taskNameAddList,
+                      tooltip: "Coming Soon",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AllTasks()),
+                        );
+                      },
                     ),
                   ],
                 ),
