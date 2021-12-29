@@ -3,4 +3,5 @@ class StringConstants {
   static const taskNamePersonal = "Personal";
   static const taskNameWork = "Work";
   static const taskNameAddList = "Add List";
+  static const todoapp = "Todo App";
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/ui/views/allTasks/all_tasks_view.dart';
+import '../allTasks/all_tasks_view.dart';
 import '../../widgets/card/my_lists_card.dart';
 import '../../../core/constant/string_constants.dart';
+import '../../widgets/padding/padding.dart';
 
 class MyListsWidget extends StatelessWidget {
   const MyListsWidget({Key? key}) : super(key: key);
   final String _myListsString = "My Lists";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +21,7 @@ class MyListsWidget extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const CustomPadding.all(),
                 child: GridView.count(
                   crossAxisCount: 2,
                   crossAxisSpacing: 20.0,
@@ -67,11 +69,7 @@ class MyListsWidget extends StatelessWidget {
                       taskName: StringConstants.taskNameAddList,
                       tooltip: "Coming Soon",
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AllTasks()),
-                        );
+                        debugPrint("sdgdfh");
                       },
                     ),
                   ],

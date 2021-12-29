@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
-import 'package:todo_app/ui/widgets/button/icon_button.dart';
+import '../button/icon_button.dart';
 
 class MyListsCardItem extends StatelessWidget {
   const MyListsCardItem(
