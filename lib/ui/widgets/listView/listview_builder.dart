@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TaskList extends StatefulWidget {
-  const TaskList({Key? key}) : super(key: key);
+  const TaskList({Key? key, required this.isDone}) : super(key: key);
 
+  final bool isDone;
   @override
   _TaskListState createState() => _TaskListState();
 }
@@ -13,12 +14,19 @@ class _TaskListState extends State<TaskList> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: 29,
-      itemBuilder: (context, index) => const Card(
+      itemBuilder: (context, index) => Card(
         child: ListTile(
-          title: Text("title"),
-          trailing: (Icon(Icons.do_not_disturb_on_sharp)),
-          subtitle: Text("data"),
-          leading: Icon(Icons.icecream_outlined),
+          title: Text(index.toString()),
+          trailing: widget.isDone
+              ? (const Icon(Icons.do_not_disturb_on_sharp))
+              : const Icon(Icons.text_snippet_outlined),
+          subtitle: const Text("data"),
+          leading: const Icon(Icons.ac_unit),
+          onTap: () {
+            setState(() {
+              widget.isDone = !widget.isDone;
+            });
+          },
         ),
       ),
     );

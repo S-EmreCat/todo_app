@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../core/constant/string_constants.dart';
-import 'package:todo_app/ui/widgets/icon/custom_list_tile_icon.dart';
-import 'package:todo_app/ui/widgets/listView/listview_builder.dart';
-import 'package:todo_app/ui/widgets/padding/padding.dart';
-import 'package:todo_app/ui/widgets/text/text_widget.dart';
+import '../../widgets/icon/custom_list_tile_icon.dart';
+import '../../widgets/listView/listview_builder.dart';
+import '../../widgets/padding/padding.dart';
+import '../../widgets/text/text_widget.dart';
 
 class AllTasks extends StatefulWidget {
   const AllTasks({Key? key}) : super(key: key);
@@ -42,7 +42,9 @@ class _AllTasksState extends State<AllTasks> {
             flex: 15,
             child: Padding(
               padding: CustomPadding.all(),
-              child: TaskList(),
+              child: TaskList(
+                isDone: true,
+              ),
             ),
           ),
           Expanded(
@@ -56,7 +58,9 @@ class _AllTasksState extends State<AllTasks> {
               flex: 8,
               child: Padding(
                 padding: CustomPadding.all(),
-                child: TaskList(),
+                child: TaskList(
+                  isDone: false,
+                ),
               )),
         ],
       ),
