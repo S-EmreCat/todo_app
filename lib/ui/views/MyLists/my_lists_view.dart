@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../allTasks/all_tasks_view.dart';
-import '../../widgets/card/my_lists_card.dart';
+
 import '../../../core/constant/string_constants.dart';
+import '../../widgets/card/my_lists_card.dart';
 import '../../widgets/padding/padding.dart';
+import '../allTasks/all_tasks_view.dart';
 
 class MyListsWidget extends StatelessWidget {
   const MyListsWidget({Key? key}) : super(key: key);

@@ -22,14 +22,14 @@ class _AllTasksState extends State<AllTasks> {
           IconButton(
             onPressed: () {},
             icon: const CustomListTileIcon(
-              isDone: false,
+              isDone: true,
             ),
-          )
+          ),
         ],
       ),
       body: Column(
-        children: const [
-          Expanded(
+        children: [
+          const Expanded(
             flex: 2,
             child: ListTile(
               trailing: Icon(Icons.add),
@@ -41,13 +41,11 @@ class _AllTasksState extends State<AllTasks> {
           Expanded(
             flex: 15,
             child: Padding(
-              padding: CustomPadding.all(),
-              child: TaskList(
-                isDone: true,
-              ),
+              padding: const CustomPadding.all(),
+              child: TaskList(),
             ),
           ),
-          Expanded(
+          const Expanded(
               flex: 2,
               child: ListTile(
                 title: TextWidget(
@@ -57,10 +55,8 @@ class _AllTasksState extends State<AllTasks> {
           Expanded(
               flex: 8,
               child: Padding(
-                padding: CustomPadding.all(),
-                child: TaskList(
-                  isDone: false,
-                ),
+                padding: const CustomPadding.all(),
+                child: TaskList(),
               )),
         ],
       ),
