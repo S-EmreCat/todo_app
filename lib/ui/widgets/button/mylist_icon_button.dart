@@ -13,7 +13,7 @@ class TaskIconButton extends StatelessWidget {
     return IconButton(
       onPressed: onPressed,
       icon: icon,
-      iconSize: 50,
+      iconSize: 60,
       tooltip: tooltip,
     );
   }

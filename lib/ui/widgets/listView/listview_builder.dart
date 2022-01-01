@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/ui/widgets/text/normal_subtitles_text_widget.dart';
+import 'package:todo_app/ui/widgets/text/normal_titles_text_widget.dart';
 
 class TaskList extends StatefulWidget {
-  TaskList({Key? key}) : super(key: key);
+  const TaskList({Key? key}) : super(key: key);
 
   @override
   _TaskListState createState() => _TaskListState();
@@ -21,6 +23,10 @@ class _TaskListState extends State<TaskList> {
     ListItem(title: 'Me', isSelected: true),
     ListItem(title: 'MYSELF', isSelected: true),
     ListItem(title: 'I', isSelected: false),
+    ListItem(title: 'Me', isSelected: true),
+    ListItem(title: 'MYSELF', isSelected: true),
+    ListItem(title: 'I', isSelected: false),
+    ListItem(title: 'Me', isSelected: true),
   ];
   @override
   Widget build(BuildContext context) {
@@ -29,19 +35,18 @@ class _TaskListState extends State<TaskList> {
       itemCount: items.length,
       itemBuilder: (context, index) => Card(
         child: ListTile(
-          title: Text(index.toString()),
+          title: NormalTitlesTextWidget(textString: index.toString()),
           trailing: items[index].isSelected
               ? (const Icon(Icons.do_not_disturb_on_sharp))
               : const Icon(Icons.text_snippet_outlined),
-          subtitle: const Text("data"),
+          subtitle: const NormalSubTitlesTextWidget(textString: "data"),
           leading: items[index].isSelected
               ? const Icon(Icons.ac_unit)
               : const Icon(Icons.track_changes),
           onTap: () {
-            setState(() {
-              debugPrint(items[index].isSelected.toString());
-              items[index].isSelected = !items[index].isSelected;
-            });
+            debugPrint(items[index].isSelected.toString());
+            items[index].isSelected = !items[index].isSelected;
+            setState(() {});
           },
         ),
       ),

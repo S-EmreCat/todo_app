@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+import 'package:todo_app/ui/widgets/text/green_titles_text_widget.dart';
+import 'package:todo_app/ui/widgets/text/normal_subtitles_text_widget.dart';
 
-import '../button/icon_button.dart';
+import '../button/mylist_icon_button.dart';
 
 class MyListsCardItem extends StatelessWidget {
   const MyListsCardItem(
@@ -36,13 +38,13 @@ class MyListsCardItem extends StatelessWidget {
             ),
             Expanded(
               flex: 1,
-              child:
-                  Text(taskName, style: Theme.of(context).textTheme.headline6),
+              child: GreenTitles(textString: taskName),
             ),
             Expanded(
               flex: 1,
-              child: Text("$itemCount items",
-                  style: Theme.of(context).textTheme.subtitle1),
+              child: NormalSubTitlesTextWidget(
+                textString: "$itemCount items",
+              ),
             ),
             const Expanded(flex: 1, child: SizedBox()),
           ],
