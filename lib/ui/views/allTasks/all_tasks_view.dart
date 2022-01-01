@@ -27,6 +27,7 @@ class _AllTasksState extends State<AllTasks> {
           Expanded(
             flex: 2,
             child: ListTile(
+              //TODO: icon widget oluştur renk atamaları yap.
               trailing: Icon(Icons.add),
               title: GreenTitles(
                 textString: StringConstants.today,

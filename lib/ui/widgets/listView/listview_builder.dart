@@ -18,6 +18,8 @@ class ListItem {
   });
 }
 
+//TODO: ontap işlemleri leading içerisinde icon yerine button eklenip oraya taşınacak.
+//TODO:  ontap işlemi olarak new task nav eklenecek.
 class _TaskListState extends State<TaskList> {
   List<ListItem> items = [
     ListItem(title: 'Me', isSelected: true),
