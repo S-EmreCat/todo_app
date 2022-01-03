@@ -33,7 +33,7 @@ class MyListsWidget extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const AllTasks()),
+              MaterialPageRoute(builder: (context) => AllTasks()),
             );
           },
         ),
@@ -44,7 +44,7 @@ class MyListsWidget extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const AllTasks()),
+              MaterialPageRoute(builder: (context) => AllTasks()),
             );
           },
         ),
@@ -55,7 +55,7 @@ class MyListsWidget extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const AllTasks()),
+              MaterialPageRoute(builder: (context) => AllTasks()),
             );
           },
         ),

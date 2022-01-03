@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
-import 'package:todo_app/ui/widgets/text/green_titles_text_widget.dart';
-import 'package:todo_app/ui/widgets/text/normal_subtitles_text_widget.dart';
+import '../text/green_titles_text_widget.dart';
+import '../text/normal_subtitles_text_widget.dart';
 
 import '../button/mylist_icon_button.dart';
 

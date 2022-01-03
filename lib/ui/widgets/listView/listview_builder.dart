@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/ui/widgets/text/normal_subtitles_text_widget.dart';
-import 'package:todo_app/ui/widgets/text/normal_titles_text_widget.dart';
+import '../text/normal_subtitles_text_widget.dart';
+import '../text/normal_titles_text_widget.dart';
 
 class TaskList extends StatefulWidget {
   const TaskList({Key? key}) : super(key: key);
@@ -30,6 +30,7 @@ class _TaskListState extends State<TaskList> {
     ListItem(title: 'I', isSelected: false),
     ListItem(title: 'Me', isSelected: true),
   ];
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -38,9 +39,6 @@ class _TaskListState extends State<TaskList> {
       itemBuilder: (context, index) => Card(
         child: ListTile(
           title: NormalTitlesTextWidget(textString: index.toString()),
-          trailing: items[index].isSelected
-              ? (const Icon(Icons.do_not_disturb_on_sharp))
-              : const Icon(Icons.text_snippet_outlined),
           subtitle: const NormalSubTitlesTextWidget(textString: "data"),
           leading: items[index].isSelected
               ? const Icon(Icons.ac_unit)
