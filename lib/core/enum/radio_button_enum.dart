@@ -1,0 +1,1 @@
+enum singingCharacter { today, tomorrow }

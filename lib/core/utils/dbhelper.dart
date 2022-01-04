@@ -1,76 +1,139 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 import 'package:todo_app/core/model/task_model.dart';
 
 class DatabaseHelper {
-  final String _taskManagerableName = "taskmanager";
+  static final DatabaseHelper _dbHelper = DatabaseHelper._internal();
+  final String taskManagerTableName = "taskmanager";
   String columnid = "id";
   String columntitle = "title";
-  String columndesc = "desc";
-  String columnDone = "Done";
-  late Database _database;
+  String columndescription = "desc";
+  String columnDay = "day";
+  String columnDone = "done";
 
-  Future<Database> get database async {
-    if (_database == null) {
-      _database = await initializeDatabase();
-      return _database;
+  DatabaseHelper._internal();
+
+  factory DatabaseHelper() {
+    return _dbHelper;
+  }
+  static Database? _db;
+  Future<Database?> get database async {
+    if (_db == null) {
+      _db = await initializeDatabase();
     } else {
-      return _database;
+      return _db;
     }
   }
 
   Future<Database> initializeDatabase() async {
-    String dbPath = join(await getDatabasesPath(), "taskmanager.db");
-    var notesDb = await openDatabase(dbPath, version: 1, onCreate: createDb);
-    return notesDb;
+    Directory dir = await getApplicationDocumentsDirectory();
+    String path = dir.path + "taskmanager.db";
+    var dbTodos = await openDatabase(path, version: 1, onCreate: createDb);
+    return dbTodos;
   }
 
   void createDb(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE $_taskManagerableName($columnid TEXT PRIMARY KEY,$columntitle TEXT NOT NULL,$columndesc TEXT NOT NULL,$columnDone INT NOT NULL)');
+        'CREATE TABLE $taskManagerTableName($columnid INT PRIMARY KEY,$columntitle TEXT,$columndescription TEXT ,$columnDay TEXT ,$columnDone INT )');
   }
 
-// tüm db listeye dönüştürme
-  Future<List<Todo>> getAllNotes() async {
-    Database _database = await database;
-    List<Map> todoMaps = await _database.query(_taskManagerableName);
-    return todoMaps.map((e) => Todo.fromMap()).toList();
+  /// tüm db listeye dönüştürme
+  Future<List<Map<String, Object?>>?> getAllTasks() async {
+    Database? _database = await database;
+    return await _database?.query('taskmanager');
   }
 
-  Future<int> insert(Todo model) async {
-    Database _database = await database;
-    final todoMaps =
-        await _database.insert(_taskManagerableName, model.toMap());
+  Future<int?> getAllCount(String taskType) async {
+    Database? _database = await database;
+    if (_database != null) {
+      var result = Sqflite.firstIntValue(await _database
+          .rawQuery("SELECT COUNT (*) FROM $taskManagerTableName"));
+      return result;
+    }
+  }
+
+  Future<int?> getTaskCount(String taskType) async {
+    Database? _database = await database;
+    if (_database != null) {
+      var result = Sqflite.firstIntValue(await _database
+          .rawQuery("SELECT COUNT (*) FROM $taskManagerTableName"));
+      return result;
+    }
+  }
+
+  /// false-true list
+  Future<List<Todo>> getAllDoneTasks(bool isDone) async {
+    final mapList = await getAllTasks();
+    List<Todo> todoList = [];
+    mapList?.forEach((element) {
+      todoList.add(Todo.fromMap(element));
+    });
+    if (isDone) {
+      return todoList.where((element) => !element.isDone!).toList();
+    } else {
+      return todoList.where((element) => element.isDone!).toList();
+    }
+  }
+
+  /// model alıp insert işlemi yapma
+  Future<int?> insert(Todo model) async {
+    Database? _database = await database;
+    var todoMaps = await _database?.insert(taskManagerTableName, model.toMap());
     return todoMaps;
   }
 
-// istenilen id ye göre item sorgusu
+  /// istenilen id ye göre select sorgusu
   Future<Todo?> getItem(int id) async {
-    Database _database = await database;
-    final todoMaps = await _database.query(
-      _taskManagerableName,
+    Database? _database = await database;
+    var todoMaps = await _database?.query(
+      taskManagerTableName,
       where: '$columnid = ?',
       columns: [columnid],
       whereArgs: [id],
     );
-    if (todoMaps.isNotEmpty) {
-      return Todo.fromMap(todoMaps.first);
-    } else {
-      return null;
+    if (todoMaps != null) {
+      if (todoMaps.isEmpty) {
+        return Todo.fromMap(todoMaps.first);
+      } else {
+        return null;
+      }
     }
   }
 
-  Future<int> deleteList(int id) async {
-    Database _database = await database;
-    final todoMaps = await _database.delete(
-      _taskManagerableName,
+  Future<int> updateIsDone(Todo todo) async {
+    Database? _database = await database;
+    if (_database != null) {
+      return await _database.update('todos', todo.toMap(),
+          where: 'columnDone=?', whereArgs: [todo.id]);
+    } else {
+      throw ('db is null');
+    }
+  }
+
+  /// istenilen id ye göre delete
+  Future<int?> deleteItem(int id) async {
+    Database? _database = await database;
+    var todoMaps = await _database?.delete(
+      taskManagerTableName,
       where: '$columnid=?',
       whereArgs: [id],
     );
     return todoMaps;
   }
 
+  Future<int?> deleteDone() async {
+    Database? _database = await database;
+    var todoMaps = await _database?.delete(
+      taskManagerTableName,
+      where: '$columnDone=?',
+      whereArgs: [true],
+    );
+    return todoMaps;
+  }
+
   Future<void> closedb() async {
-    await _database.close();
+    await _db?.close();
   }
 }

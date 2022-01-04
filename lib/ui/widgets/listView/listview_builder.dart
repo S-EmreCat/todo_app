@@ -1,51 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/utils/dbhelper.dart';
 import '../text/normal_subtitles_text_widget.dart';
 import '../text/normal_titles_text_widget.dart';
 
 class TaskList extends StatefulWidget {
-  const TaskList({Key? key}) : super(key: key);
-
+  const TaskList({Key? key, required this.todos}) : super(key: key);
+  final List<Map<String, Object?>>? todos;
   @override
   _TaskListState createState() => _TaskListState();
-}
-
-class ListItem {
-  String? title;
-  bool isSelected;
-  ListItem({
-    this.title,
-    required this.isSelected,
-  });
 }
 
 //TODO: ontap işlemleri leading içerisinde icon yerine button eklenip oraya taşınacak.
 //TODO:  ontap işlemi olarak new task nav eklenecek.
 class _TaskListState extends State<TaskList> {
-  List<ListItem> items = [
-    ListItem(title: 'Me', isSelected: true),
-    ListItem(title: 'MYSELF', isSelected: true),
-    ListItem(title: 'I', isSelected: false),
-    ListItem(title: 'Me', isSelected: true),
-    ListItem(title: 'MYSELF', isSelected: true),
-    ListItem(title: 'I', isSelected: false),
-    ListItem(title: 'Me', isSelected: true),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: items.length,
+      itemCount: widget.todos == null ? 3 : widget.todos?.length,
       itemBuilder: (context, index) => Card(
         child: ListTile(
           title: NormalTitlesTextWidget(textString: index.toString()),
           subtitle: const NormalSubTitlesTextWidget(textString: "data"),
-          leading: items[index].isSelected
-              ? const Icon(Icons.ac_unit)
-              : const Icon(Icons.track_changes),
+          leading: widget.todos == null
+              ? const Text("3")
+              : Text(widget.todos![index].toString()),
+          // ? const Icon(Icons.ac_unit)
+          //: const Icon(Icons.track_changes),
           onTap: () {
-            debugPrint(items[index].isSelected.toString());
-            items[index].isSelected = !items[index].isSelected;
+            // debugPrint(widget.todos?[index].isDone.toString());
+            // widget.todos?[index].isDone = widget.todos?[index].isDone;
             setState(() {});
           },
         ),
