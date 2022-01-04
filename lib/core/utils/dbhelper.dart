@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:todo_app/core/model/task_model.dart';
+import '../model/task_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _dbHelper = DatabaseHelper._internal();

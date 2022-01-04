@@ -1,5 +1,5 @@
-import 'package:todo_app/core/model/task_model.dart';
-import 'package:todo_app/core/utils/dbhelper.dart';
+import '../../../core/model/task_model.dart';
+import '../../../core/utils/dbhelper.dart';
 
 class ViewModelAllTasks {
   DatabaseHelper dbhelper = DatabaseHelper();

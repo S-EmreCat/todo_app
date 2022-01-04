@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/ui/views/addTask/add_task.view.dart';
 
 import '../../../core/constant/string_constants.dart';
 import '../../widgets/card/my_lists_card.dart';
@@ -66,6 +67,10 @@ class MyListsWidget extends StatelessWidget {
           tooltip: "Coming Soon",
           onPressed: () {
             debugPrint("sdgdfh");
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddTaskView()),
+            );
           },
         ),
       ],

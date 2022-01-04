@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/ui/views/addTask/add_task.view.dart';
-import 'package:todo_app/ui/views/allTasks/all_tasks_service.dart';
+import '../addTask/add_task.view.dart';
+import 'all_tasks_service.dart';
 
 import '../../../core/constant/string_constants.dart';
 import '../../widgets/icon/custom_list_tile_icon.dart';
@@ -40,7 +40,6 @@ class _AllTasksState extends State<AllTasks> {
           Expanded(
             flex: 2,
             child: ListTile(
-              //TODO: icon widget oluştur renk atamaları yap.
               trailing: floatingButtonAdd(),
               title: const GreenTitles(
                 textString: StringConstants.today,
