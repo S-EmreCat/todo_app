@@ -6,7 +6,9 @@ class ViewModelAllTasks {
   List<Map<String, Object?>>? todos = [];
 
   loadData() {
-    dbhelper.getAllTasks().then((value) => todos = value);
+    dbhelper
+        .getAllTasks()
+        .then((value) => todos = value?.cast<Map<String, Object?>>());
   }
 
   updateData(Todo model) {

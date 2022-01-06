@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/ui/views/addTask/add_task.view.dart';
+import '../addTask/add_task.view.dart';
 
 import '../../../core/constant/string_constants.dart';
 import '../../widgets/card/my_lists_card.dart';
@@ -52,7 +52,7 @@ class MyListsWidget extends StatelessWidget {
         MyListsCardItem(
           itemCount: 9,
           taskIcon: const Icon(Icons.work_outline),
-          taskName: StringConstants.taskNamePersonal,
+          taskName: StringConstants.taskNameWork,
           onPressed: () {
             Navigator.push(
               context,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/utils/dbhelper.dart';
 import '../addTask/add_task.view.dart';
-import 'all_tasks_service.dart';
 
 import '../../../core/constant/string_constants.dart';
 import '../../widgets/icon/custom_list_tile_icon.dart';
@@ -16,14 +16,13 @@ class AllTasks extends StatefulWidget {
 }
 
 class _AllTasksState extends State<AllTasks> {
-  ViewModelAllTasks deneme3 = ViewModelAllTasks();
+  late DatabaseHelper _dbhelper;
 
   @override
   void initState() {
+    _dbhelper = DatabaseHelper();
     super.initState();
   }
-
-  late var deneme2 = deneme3.todos;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +45,11 @@ class _AllTasksState extends State<AllTasks> {
               ),
             ),
           ),
-          Expanded(
+          const Expanded(
             flex: 15,
             child: Padding(
-              padding: const CustomPadding.all(),
-              child: TaskList(todos: deneme2),
+              padding: CustomPadding.all(),
+              child: TaskList(),
             ),
           ),
           Expanded(
@@ -62,11 +61,11 @@ class _AllTasksState extends State<AllTasks> {
               ),
             ),
           ),
-          Expanded(
+          const Expanded(
             flex: 8,
             child: Padding(
-              padding: const CustomPadding.all(),
-              child: TaskList(todos: deneme2),
+              padding: CustomPadding.all(),
+              child: TaskList(),
             ),
           ),
         ],
@@ -90,7 +89,10 @@ class _AllTasksState extends State<AllTasks> {
 
   ElevatedButton clearCompletedButton() {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () async {
+        await _dbhelper.deleteDone();
+        setState(() {});
+      },
       child: Row(
         children: const [
           CustomListTileIcon(

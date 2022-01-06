@@ -1,4 +1,5 @@
-import '../../../core/model/task_model.dart';
+import 'package:todo_app/core/model/task_model.dart';
+
 import '../../../core/utils/dbhelper.dart';
 
 class ViewModelAddTask {
