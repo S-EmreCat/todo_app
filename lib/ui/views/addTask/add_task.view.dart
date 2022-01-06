@@ -76,7 +76,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                 debugPrint('save');
                 await _dbhelper.insert(
                   Todo(
-                      id: 123,
+                      id: 145,
                       title: titleController.text,
                       description: subTitleController.text,
                       day: radioButtonItem,

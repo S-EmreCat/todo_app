@@ -5,7 +5,7 @@ import '../model/task_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _dbHelper = DatabaseHelper._internal();
-  final String taskManagerTableName = "taskmanager7";
+  final String taskManagerTableName = "taskmanager11";
   String columnid = "id";
   String columntitle = "title";
   String columndescription = "description";
@@ -36,7 +36,7 @@ class DatabaseHelper {
 
   Future createDb(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE $taskManagerTableName($columnid INTEGER PRIMARY KEY,$columntitle TEXT,$columndescription TEXT ,$columnDay TEXT ,$columntaskType TEXT $columnisDone BOOLEAN )');
+        'CREATE TABLE $taskManagerTableName($columnid INTEGER PRIMARY KEY,$columntitle TEXT,$columndescription TEXT,$columnDay TEXT,$columntaskType TEXT, $columnisDone BOOLEAN)');
   }
 
   /// tüm db listeye dönüştürme
