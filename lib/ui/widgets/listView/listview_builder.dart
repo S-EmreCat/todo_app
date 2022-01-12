@@ -1,31 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/model/task_model.dart';
-import 'package:todo_app/core/utils/dbhelper.dart';
+
+import '../../../core/model/task_model.dart';
 import '../../views/addTask/add_task.view.dart';
 import '../text/normal_subtitles_text_widget.dart';
 import '../text/normal_titles_text_widget.dart';
 
 class TaskList extends StatefulWidget {
-  const TaskList({
-    Key? key,
-  }) : super(key: key);
+  TaskList({Key? key, required this.myFuture}) : super(key: key);
+  Future<List<Todo>?> myFuture;
   @override
   _TaskListState createState() => _TaskListState();
 }
 
 //TODO: ontap işlemleri leading içerisinde icon yerine button eklenip oraya taşınacak.
 class _TaskListState extends State<TaskList> {
-  late DatabaseHelper _dbhelper;
   @override
   void initState() {
-    _dbhelper = DatabaseHelper();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _dbhelper.getAllTasks(),
+      future: widget.myFuture,
       builder: (BuildContext context, AsyncSnapshot<List<Todo>?> snapshot) {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
@@ -49,9 +46,6 @@ class _TaskListState extends State<TaskList> {
                     MaterialPageRoute(
                         builder: (context) => const AddTaskView()),
                   );
-                  // debugPrint(widget.todos?[index].isDone.toString());
-                  // widget.todos?[index].isDone = widget.todos?[index].isDone;
-                  //setState(() {});
                 },
               ),
             ),

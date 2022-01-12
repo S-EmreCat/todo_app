@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
-import '../text/green_titles_text_widget.dart';
-import '../text/normal_subtitles_text_widget.dart';
 
 import '../button/mylist_icon_button.dart';
+import '../text/green_titles_text_widget.dart';
+import '../text/normal_subtitles_text_widget.dart';
 
 class MyListsCardItem extends StatelessWidget {
   const MyListsCardItem(
       {Key? key,
-      required this.itemCount,
+      this.itemCount,
       required this.taskIcon,
       required this.taskName,
       required this.onPressed,
       this.tooltip})
       : super(key: key);
-  final int itemCount;
+  final int? itemCount;
   final Icon taskIcon;
   final String taskName;
   final Callback onPressed;

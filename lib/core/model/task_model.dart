@@ -1,12 +1,12 @@
 class Todo {
-  int id;
+  int? id;
   String title;
   String description;
   String day;
   bool isDone;
   String taskType;
   Todo({
-    required this.id,
+    this.id,
     required this.title,
     required this.description,
     required this.day,
@@ -16,11 +16,13 @@ class Todo {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = <String, dynamic>{};
-    map['id'] = id;
+    if (id != null) {
+      map['id'] = id;
+    }
     map['title'] = title;
     map['description'] = description;
     map['day'] = day;
-    map['isDone'] = isDone;
+    map['isDone'] = isDone ? 1 : 0;
     map['taskType'] = taskType;
     return map;
   }
@@ -31,7 +33,7 @@ class Todo {
       title: map['title'],
       description: map['description'],
       day: map['day'],
-      isDone: map['isDone'],
+      isDone: map['isDone'] == 1,
       taskType: map['taskType'],
     );
   }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/utils/dbhelper.dart';
-import '../addTask/add_task.view.dart';
+import '../../../core/utils/dbhelper.dart';
+import 'all_tasks_service.dart';
 
 import '../../../core/constant/string_constants.dart';
 import '../../widgets/icon/custom_list_tile_icon.dart';
 import '../../widgets/listView/listview_builder.dart';
 import '../../widgets/padding/padding.dart';
 import '../../widgets/text/green_titles_text_widget.dart';
+import '../addTask/add_task.view.dart';
 
 class AllTasks extends StatefulWidget {
   const AllTasks({Key? key}) : super(key: key);
@@ -17,16 +18,14 @@ class AllTasks extends StatefulWidget {
 
 class _AllTasksState extends State<AllTasks> {
   late DatabaseHelper _dbhelper;
-
   @override
   void initState() {
-    _dbhelper = DatabaseHelper();
     super.initState();
+    _dbhelper = DatabaseHelper();
   }
 
   @override
   Widget build(BuildContext context) {
-    //print(deneme2.toString());
     return Scaffold(
       appBar: AppBar(
         title: const Text(StringConstants.taskNameAll),
@@ -45,11 +44,13 @@ class _AllTasksState extends State<AllTasks> {
               ),
             ),
           ),
-          const Expanded(
+          Expanded(
             flex: 15,
             child: Padding(
-              padding: CustomPadding.all(),
-              child: TaskList(),
+              padding: const CustomPadding.all(),
+              child: TaskList(
+                myFuture: _dbhelper.getDayTask('today'),
+              ),
             ),
           ),
           Expanded(
@@ -61,11 +62,13 @@ class _AllTasksState extends State<AllTasks> {
               ),
             ),
           ),
-          const Expanded(
-            flex: 8,
+          Expanded(
+            flex: 15,
             child: Padding(
-              padding: CustomPadding.all(),
-              child: TaskList(),
+              padding: const CustomPadding.all(),
+              child: TaskList(
+                myFuture: _dbhelper.getDayTask('Tomorrow'),
+              ),
             ),
           ),
         ],
@@ -90,7 +93,8 @@ class _AllTasksState extends State<AllTasks> {
   ElevatedButton clearCompletedButton() {
     return ElevatedButton(
       onPressed: () async {
-        await _dbhelper.deleteDone();
+        _dbhelper.deleteAllTasks();
+        debugPrint("deleted");
         setState(() {});
       },
       child: Row(

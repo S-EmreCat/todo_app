@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/model/task_model.dart';
-import 'package:todo_app/core/utils/dbhelper.dart';
+
 import '../../../core/constant/string_constants.dart';
+import '../../../core/model/task_model.dart';
+import '../../../core/utils/dbhelper.dart';
 import '../../widgets/padding/padding.dart';
 
 class AddTaskView extends StatefulWidget {
@@ -74,15 +75,16 @@ class _AddTaskViewState extends State<AddTaskView> {
               child: const Text("save"),
               onPressed: () async {
                 debugPrint('save');
-                await _dbhelper.insert(
-                  Todo(
-                      id: 145,
-                      title: titleController.text,
-                      description: subTitleController.text,
-                      day: radioButtonItem,
-                      isDone: false,
-                      taskType: dropdownValue!),
-                );
+                await _dbhelper
+                    .insert(
+                      Todo(
+                          title: titleController.text,
+                          description: subTitleController.text,
+                          day: radioButtonItem,
+                          isDone: false,
+                          taskType: dropdownValue!),
+                    )
+                    .then((value) => Navigator.pop(context));
               },
             ),
           ],
