@@ -6,8 +6,8 @@ import '../text/normal_subtitles_text_widget.dart';
 import '../text/normal_titles_text_widget.dart';
 
 class TaskList extends StatefulWidget {
-  TaskList({Key? key, required this.myFuture}) : super(key: key);
-  Future<List<Todo>?> myFuture;
+  const TaskList({Key? key, required this.myFuture}) : super(key: key);
+  final Future<List<Todo>?> myFuture;
   @override
   _TaskListState createState() => _TaskListState();
 }
@@ -44,7 +44,12 @@ class _TaskListState extends State<TaskList> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const AddTaskView()),
+                        builder: (context) => AddTaskView(
+                              getTitle: snapshot.data![index].title,
+                              getSubTitle: snapshot.data![index].description,
+                              getDropdownValue: snapshot.data![index].taskType,
+                              getRadioButtonItem: snapshot.data![index].day,
+                            )),
                   );
                 },
               ),

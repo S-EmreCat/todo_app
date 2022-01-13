@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/dbhelper.dart';
-import 'mylistst_service.dart';
 import '../addTask/add_task.view.dart';
 
 import '../../../core/constant/string_constants.dart';
@@ -59,65 +58,9 @@ class _MyListsWidgetState extends State<MyListsWidget> {
                     if (!snapshot1.hasData) {
                       return const CircularProgressIndicator();
                     } else if (snapshot1.hasData) {
-                      return GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 20.0,
-                        mainAxisSpacing: 20,
-                        children: [
-                          MyListsCardItem(
-                            itemCount: int.parse(snapshot1.data![0].toString()),
-                            taskIcon: const Icon(Icons.notes),
-                            taskName: StringConstants.taskNameAll,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const AllTasks()),
-                              );
-                            },
-                          ),
-                          MyListsCardItem(
-                            itemCount: int.parse(snapshot1.data![1].toString()),
-                            taskIcon: const Icon(Icons.account_box_outlined),
-                            taskName: StringConstants.taskNamePersonal,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const AllTasks()),
-                              );
-                            },
-                          ),
-                          MyListsCardItem(
-                            itemCount: int.parse(snapshot1.data![2].toString()),
-                            taskIcon: const Icon(Icons.work_outline),
-                            taskName: StringConstants.taskNameWork,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const AllTasks()),
-                              );
-                            },
-                          ),
-                          MyListsCardItem(
-                            itemCount: int.parse(snapshot1.data![0].toString()),
-                            taskIcon: const Icon(Icons.add),
-                            taskName: StringConstants.taskNameAddList,
-                            tooltip: "Coming Soon",
-                            onPressed: () {
-                              debugPrint("sdgdfh");
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const AddTaskView()),
-                              );
-                            },
-                          ),
-                        ],
-                      );
+                      return gridViewMethod(snapshot1, context);
                     } else {
-                      return const Text("data");
+                      return Container();
                     }
                   });
             }
@@ -129,6 +72,63 @@ class _MyListsWidgetState extends State<MyListsWidget> {
             return Container();
         }
       },
+    );
+  }
+
+  GridView gridViewMethod(
+      AsyncSnapshot<List<dynamic>> snapshot1, BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 20.0,
+      mainAxisSpacing: 20,
+      children: [
+        MyListsCardItem(
+          itemCount: int.parse(snapshot1.data![0].toString()),
+          taskIcon: const Icon(Icons.notes),
+          taskName: StringConstants.taskNameAll,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AllTasks()),
+            );
+          },
+        ),
+        MyListsCardItem(
+          itemCount: int.parse(snapshot1.data![1].toString()),
+          taskIcon: const Icon(Icons.account_box_outlined),
+          taskName: StringConstants.taskNamePersonal,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AllTasks()),
+            );
+          },
+        ),
+        MyListsCardItem(
+          itemCount: int.parse(snapshot1.data![2].toString()),
+          taskIcon: const Icon(Icons.work_outline),
+          taskName: StringConstants.taskNameWork,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AllTasks()),
+            );
+          },
+        ),
+        MyListsCardItem(
+          itemCount: int.parse(snapshot1.data![0].toString()),
+          taskIcon: const Icon(Icons.add),
+          taskName: StringConstants.taskNameAddTask,
+          tooltip: "Coming Soon",
+          onPressed: () {
+            debugPrint("sdgdfh");
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddTaskView()),
+            );
+          },
+        ),
+      ],
     );
   }
 }

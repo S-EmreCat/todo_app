@@ -6,8 +6,17 @@ import '../../../core/utils/dbhelper.dart';
 import '../../widgets/padding/padding.dart';
 
 class AddTaskView extends StatefulWidget {
-  const AddTaskView({Key? key}) : super(key: key);
-
+  const AddTaskView(
+      {Key? key,
+      this.getDropdownValue,
+      this.getRadioButtonItem,
+      this.getTitle,
+      this.getSubTitle})
+      : super(key: key);
+  final String? getDropdownValue;
+  final String? getRadioButtonItem;
+  final String? getTitle;
+  final String? getSubTitle;
   @override
   _AddTaskViewState createState() => _AddTaskViewState();
 }
@@ -21,6 +30,7 @@ class _AddTaskViewState extends State<AddTaskView> {
   }
 
   String radioButtonItem = 'today';
+
   int radioId = 1;
   final items = <String>[
     StringConstants.taskNamePersonal,
@@ -31,6 +41,12 @@ class _AddTaskViewState extends State<AddTaskView> {
   @override
   Widget build(BuildContext context) {
     final titleController = TextEditingController();
+    titleController.text = "";
+    //TODO: push controll
+    if (widget.getTitle != null) {
+      titleController.text = widget.getTitle!;
+    }
+
     final subTitleController = TextEditingController();
     // TODO: Actions (save-back & delete & back)
     return Scaffold(

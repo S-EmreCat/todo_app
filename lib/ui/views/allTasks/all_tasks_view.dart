@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../core/utils/dbhelper.dart';
-import 'all_tasks_service.dart';
-
 import '../../../core/constant/string_constants.dart';
 import '../../widgets/icon/custom_list_tile_icon.dart';
 import '../../widgets/listView/listview_builder.dart';
@@ -102,7 +100,7 @@ class _AllTasksState extends State<AllTasks> {
           CustomListTileIcon(
             isDone: true,
           ),
-          Text(StringConstants.clearCompleted),
+          Text(StringConstants.clearAll),
         ],
       ),
     );
