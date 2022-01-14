@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/ui/widgets/button/addTask/insert_elevated_button.dart';
 
 import '../../../core/constant/string_constants.dart';
-import '../../../core/model/task_model.dart';
 import '../../../core/utils/dbhelper.dart';
 import '../../widgets/padding/padding.dart';
 
 class AddTaskView extends StatefulWidget {
   const AddTaskView(
       {Key? key,
+      this.getPageTitle,
       this.getDropdownValue,
       this.getRadioButtonItem,
-      this.getTitle,
+      this.getTaskTitle,
+      this.getTodoId,
       this.getSubTitle})
       : super(key: key);
+  final String? getPageTitle;
   final String? getDropdownValue;
   final String? getRadioButtonItem;
-  final String? getTitle;
+  final String? getTaskTitle;
   final String? getSubTitle;
+  final int? getTodoId;
   @override
   _AddTaskViewState createState() => _AddTaskViewState();
 }
@@ -29,29 +33,40 @@ class _AddTaskViewState extends State<AddTaskView> {
     super.initState();
   }
 
-  String radioButtonItem = 'today';
+  String? radioButtonItem;
 
   int radioId = 1;
-  final items = <String>[
+  final dropDownItems = <String>[
     StringConstants.taskNamePersonal,
     StringConstants.taskNameWork
   ];
   String? dropdownValue;
+  @override
+  void didUpdateWidget(AddTaskView oldWidget) {
+    // dropdownValue = widget.getDropdownValue;
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
     final titleController = TextEditingController();
-    titleController.text = "";
-    //TODO: push controll
-    if (widget.getTitle != null) {
-      titleController.text = widget.getTitle!;
-    }
+
+    titleController.text = widget.getTaskTitle ?? '';
+
+    radioButtonItem = widget.getRadioButtonItem ?? 'today';
 
     final subTitleController = TextEditingController();
-    // TODO: Actions (save-back & delete & back)
+    subTitleController.text = widget.getSubTitle ?? '';
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(StringConstants.addNewTask),
+        title: Text(widget.getPageTitle ?? StringConstants.addNewTask),
+        actions: [
+          Visibility(
+            child: deleteTaskButton(),
+            visible: widget.getPageTitle == StringConstants.updateTaskTitle,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -71,41 +86,37 @@ class _AddTaskViewState extends State<AddTaskView> {
                 radioMethod(StringConstants.tomorrow, 2),
               ],
             ),
-            DropdownButton<String>(
-              value: dropdownValue,
-              hint: const Text('Select task type'),
-              icon: const Icon(Icons.arrow_drop_down),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
-              items: items.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            ElevatedButton(
-              child: const Text("save"),
-              onPressed: () async {
-                debugPrint('save');
-                await _dbhelper
-                    .insert(
-                      Todo(
-                          title: titleController.text,
-                          description: subTitleController.text,
-                          day: radioButtonItem,
-                          isDone: false,
-                          taskType: dropdownValue!),
-                    )
-                    .then((value) => Navigator.pop(context));
-              },
-            ),
+            newMethodDropDownButton(),
+            InsertElevatedButton(
+                todoid: widget.getTodoId,
+                dbhelper: _dbhelper,
+                titleController: titleController,
+                subTitleController: subTitleController,
+                radioButtonItem: radioButtonItem,
+                dropdownValue: dropdownValue,
+                buttonText: StringConstants.update),
           ],
         ),
       ),
+    );
+  }
+
+  DropdownButton<String> newMethodDropDownButton() {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      hint: const Text('Select task type'),
+      icon: const Icon(Icons.arrow_drop_down),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+        });
+      },
+      items: dropDownItems.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 
@@ -136,6 +147,22 @@ class _AddTaskViewState extends State<AddTaskView> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
         ),
+      ),
+    );
+  }
+
+  ElevatedButton deleteTaskButton() {
+    return ElevatedButton(
+      onPressed: () async {
+        _dbhelper.deleteItem(widget.getTodoId!);
+        debugPrint("deleted");
+        setState(() {});
+      },
+      child: Row(
+        children: const [
+          Icon(Icons.clear),
+          Text(StringConstants.deleteTask),
+        ],
       ),
     );
   }

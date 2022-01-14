@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/core/constant/string_constants.dart';
 
 import '../../../core/model/task_model.dart';
 import '../../views/addTask/add_task.view.dart';
@@ -45,7 +46,9 @@ class _TaskListState extends State<TaskList> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => AddTaskView(
-                              getTitle: snapshot.data![index].title,
+                              getTodoId: snapshot.data![index].id,
+                              getPageTitle: StringConstants.updateTaskTitle,
+                              getTaskTitle: snapshot.data![index].title,
                               getSubTitle: snapshot.data![index].description,
                               getDropdownValue: snapshot.data![index].taskType,
                               getRadioButtonItem: snapshot.data![index].day,

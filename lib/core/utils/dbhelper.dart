@@ -103,7 +103,7 @@ class DatabaseHelper {
     var todoMaps = await _database?.query(
       taskManagerTableName,
       where: '$columnid = ?',
-      columns: [columnid],
+      columns: [],
       whereArgs: [id],
     );
 
@@ -115,13 +115,13 @@ class DatabaseHelper {
   }
 
   /// today - Tomorrow
-  Future<List<Todo>?> getDayTask(String dene) async {
+  Future<List<Todo>?> getDayTask(String day) async {
     var databasec = await database;
     var result = await databasec?.query(
       taskManagerTableName,
       where: '$columnDay = ?',
       columns: [],
-      whereArgs: [dene],
+      whereArgs: [day],
     );
     List<Todo> todoList = [];
     // return result?.map((e) => Todo.fromMap(e)).toList();
@@ -137,8 +137,8 @@ class DatabaseHelper {
   Future<int> updateIsDone(Todo todo) async {
     Database? _database = await database;
     if (_database != null) {
-      var todoMaps = await _database.update('todos', todo.toMap(),
-          where: '$columnisDone=?', whereArgs: [todo.id]);
+      var todoMaps = await _database.update(taskManagerTableName, todo.toMap(),
+          where: '$columnid=?', whereArgs: [todo.id]);
       return todoMaps;
     } else {
       throw ('db is null');

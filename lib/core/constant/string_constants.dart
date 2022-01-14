@@ -9,5 +9,8 @@ class StringConstants {
   static const tomorrow = "Tomorrow";
   static const myLists = "My Lists";
   static const addNewTask = "Add New Task";
-  static const updateTask = "Update Task";
+  static const updateTaskTitle = "Update Task";
+  static const save = 'save';
+  static const update = "update";
+  static const deleteTask = 'Delete Task';
 }
