@@ -5,11 +5,11 @@ class ViewModelAllTasks {
   DatabaseHelper dbhelper = DatabaseHelper();
   List<Map<String, Object?>>? todos = [];
 
-  // loadData() {
-  //   dbhelper
-  //       .getAllTasks()
-  //       .then((value) => todos = value?.cast<Map<String, Object?>>());
-  // }
+  loadData() {
+    dbhelper
+        .getAllTasks()
+        .then((value) => todos = value?.cast<Map<String, Object?>>());
+  }
 
   updateData(Todo model) {
     dbhelper.updateIsDone(model);

@@ -31,7 +31,6 @@ class _MyListsWidgetState extends State<MyListsWidget> {
 
 // itemcount: all - personal - work count
   FutureBuilder customFutureBuilder() {
-    setState(() {});
     return FutureBuilder<List>(
       future: Future.wait([
         _dbhelper.getAllCount(),
@@ -41,12 +40,9 @@ class _MyListsWidgetState extends State<MyListsWidget> {
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
-            debugPrint("d");
             if (snapshot.hasError) {
-              debugPrint("i");
               return Text('Error: ${snapshot.error}');
             } else {
-              debugPrint("e");
               return FutureBuilder<List>(
                   future: Future.wait([
                     _dbhelper.getAllCount(),
@@ -65,7 +61,6 @@ class _MyListsWidgetState extends State<MyListsWidget> {
                   });
             }
           case ConnectionState.waiting:
-            debugPrint("s");
             return const CircularProgressIndicator();
           default:
             debugPrint("Snapshot " + snapshot.toString());
@@ -90,7 +85,7 @@ class _MyListsWidgetState extends State<MyListsWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const AllTasks()),
-            );
+            ).then((value) => setState(() {}));
           },
         ),
         MyListsCardItem(
@@ -101,7 +96,7 @@ class _MyListsWidgetState extends State<MyListsWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const AllTasks()),
-            );
+            ).then((value) => setState(() {}));
           },
         ),
         MyListsCardItem(
@@ -112,7 +107,7 @@ class _MyListsWidgetState extends State<MyListsWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const AllTasks()),
-            );
+            ).then((value) => setState(() {}));
           },
         ),
         MyListsCardItem(
@@ -122,10 +117,11 @@ class _MyListsWidgetState extends State<MyListsWidget> {
           tooltip: "Coming Soon",
           onPressed: () {
             debugPrint("sdgdfh");
+
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const AddTaskView()),
-            );
+            ).then((value) => setState(() {}));
           },
         ),
       ],

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../core/utils/dbhelper.dart';
+
 import '../../../core/constant/string_constants.dart';
+import '../../../core/utils/dbhelper.dart';
 import '../../widgets/icon/custom_list_tile_icon.dart';
-import '../../widgets/listView/listview_builder.dart';
+import '../../widgets/listView/custom_task_list_builder.dart';
 import '../../widgets/padding/padding.dart';
 import '../../widgets/text/green_titles_text_widget.dart';
 import '../addTask/add_task.view.dart';
@@ -27,9 +28,7 @@ class _AllTasksState extends State<AllTasks> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(StringConstants.taskNameAll),
-        actions: [
-          clearCompletedButton(),
-        ],
+        actions: [clearCompletedButton(), refleshData()],
       ),
       body: Column(
         children: [
@@ -82,18 +81,29 @@ class _AllTasksState extends State<AllTasks> {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const AddTaskView()),
-        );
+        ).then((value) => setState(() {}));
       },
       heroTag: null,
+    );
+  }
+
+  ElevatedButton refleshData() {
+    return ElevatedButton(
+      onPressed: () async {
+        setState(() {});
+      },
+      child: Row(
+        children: const [
+          Text('Reflesh'),
+        ],
+      ),
     );
   }
 
   ElevatedButton clearCompletedButton() {
     return ElevatedButton(
       onPressed: () async {
-        _dbhelper.deleteAllTasks();
-        debugPrint("deleted");
-        setState(() {});
+        _dbhelper.deleteAllTasks().then((value) => setState(() {}));
       },
       child: Row(
         children: const [

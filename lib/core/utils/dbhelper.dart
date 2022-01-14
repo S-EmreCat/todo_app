@@ -1,5 +1,5 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../model/task_model.dart';
 
@@ -70,7 +70,6 @@ class DatabaseHelper {
       var result = Sqflite.firstIntValue(await _database.rawQuery(
           'SELECT COUNT (*) FROM $taskManagerTableName WHERE $columntaskType =?',
           [taskType]));
-      print(result);
       return result;
     }
   }

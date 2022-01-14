@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/ui/widgets/button/addTask/insert_elevated_button.dart';
 
 import '../../../core/constant/string_constants.dart';
 import '../../../core/utils/dbhelper.dart';
+import '../../widgets/button/addTask/insert_elevated_button.dart';
 import '../../widgets/padding/padding.dart';
 
 class AddTaskView extends StatefulWidget {
@@ -25,6 +25,8 @@ class AddTaskView extends StatefulWidget {
   _AddTaskViewState createState() => _AddTaskViewState();
 }
 
+String? radioButtonItem = 'today';
+
 class _AddTaskViewState extends State<AddTaskView> {
   late DatabaseHelper _dbhelper;
   @override
@@ -32,8 +34,6 @@ class _AddTaskViewState extends State<AddTaskView> {
     _dbhelper = DatabaseHelper();
     super.initState();
   }
-
-  String? radioButtonItem;
 
   int radioId = 1;
   final dropDownItems = <String>[
@@ -52,8 +52,6 @@ class _AddTaskViewState extends State<AddTaskView> {
     final titleController = TextEditingController();
 
     titleController.text = widget.getTaskTitle ?? '';
-
-    radioButtonItem = widget.getRadioButtonItem ?? 'today';
 
     final subTitleController = TextEditingController();
     subTitleController.text = widget.getSubTitle ?? '';
@@ -88,13 +86,16 @@ class _AddTaskViewState extends State<AddTaskView> {
             ),
             newMethodDropDownButton(),
             InsertElevatedButton(
-                todoid: widget.getTodoId,
-                dbhelper: _dbhelper,
-                titleController: titleController,
-                subTitleController: subTitleController,
-                radioButtonItem: radioButtonItem,
-                dropdownValue: dropdownValue,
-                buttonText: StringConstants.update),
+              todoid: widget.getTodoId,
+              dbhelper: _dbhelper,
+              titleController: titleController,
+              subTitleController: subTitleController,
+              radioButtonItem: radioButtonItem,
+              dropdownValue: dropdownValue ?? dropDownItems[0],
+              buttonText: widget.getPageTitle != StringConstants.updateTaskTitle
+                  ? StringConstants.save
+                  : StringConstants.update,
+            ),
           ],
         ),
       ),
@@ -156,7 +157,6 @@ class _AddTaskViewState extends State<AddTaskView> {
       onPressed: () async {
         _dbhelper.deleteItem(widget.getTodoId!);
         debugPrint("deleted");
-        setState(() {});
       },
       child: Row(
         children: const [

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/core/constant/string_constants.dart';
+import '../../../core/constant/string_constants.dart';
 
 import '../../../core/model/task_model.dart';
 import '../../views/addTask/add_task.view.dart';
@@ -13,13 +13,7 @@ class TaskList extends StatefulWidget {
   _TaskListState createState() => _TaskListState();
 }
 
-//TODO: ontap işlemleri leading içerisinde icon yerine button eklenip oraya taşınacak.
 class _TaskListState extends State<TaskList> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -53,7 +47,7 @@ class _TaskListState extends State<TaskList> {
                               getDropdownValue: snapshot.data![index].taskType,
                               getRadioButtonItem: snapshot.data![index].day,
                             )),
-                  );
+                  ).then((value) => setState(() {}));
                 },
               ),
             ),

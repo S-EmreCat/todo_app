@@ -19,11 +19,6 @@ class ViewModelMyLists {
     return await _dbhelper.getCustomTaskCount(taskType);
   }
 
-  // Future<int> getAllCount() async {
-  //   countAll = await _dbhelper.getAllCount();
-  //   return countAll;
-  // }
-
   Future<int> updateData(Todo model) async {
     return _dbhelper.updateIsDone(model);
   }
